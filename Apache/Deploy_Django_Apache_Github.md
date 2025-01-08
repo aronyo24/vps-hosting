@@ -11,26 +11,7 @@
 | AAAA  | @     | Your Remote Server IPv6 |
 | AAAA  | www   | Your Remote Server IPv6 |
 
-- On Local Windows Machine, Goto Your Project Folder then follow below instruction:
-- Create a folder in your root project directory then move database file inside this created directory e.g. mbdb/db.sqlite3
-- Open settings.py file then change sqlite db file path as it is now inside folder
-```sh
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'mbdb/db.sqlite3',
-    }
-}
-```
-- Save and Close settings.py file
-- Open Terminal
-- Activate Your virtual Env
-- Create requirements.txt File
-```sh
-  pip freeze > requirements.txt
-```
-- Deactivate Virtual Env
-- Push your Poject to You Github Account as Private Repo
+
 - To Access Remote Server via SSH
 ```sh
 Syntax:- ssh -p PORT USERNAME@HOSTIP
@@ -82,10 +63,7 @@ sudo ufw reload
 ```sh
 ssh-keygen -t ed25519 -C "githubs"
 ```
-- If Permission Denied then Own .ssh then try again to Generate SSH Keys
-```sh
-Syntax:- sudo chown -R user_name .ssh
-Example:- sudo chown -R raj .ssh
+
 ```
 - Open Public SSH Keys then copy the key
 ```sh
@@ -104,11 +82,13 @@ ssh -vT git@github.com
 - You may get an error git @ github.com: Permission denied (publickey) If you will try to clone it directly on Web Server Public Folder /var/www So we will clone github repo in User's Home Directory then Move it to Web server Public Directory
 - Clone Project from your github account
 ```sh
-- Using HTTPS Path It doesnt require to setup SSH Key on Github
-Syntax:- git clone https_repo_path
-Example:- git clone https://github.com/geekyshow1/miniblog.git
+
 
 - Using SSH Path It requires to setup SSH Key on Github
+-go to :
+Syntax:- cd /var/www/project_folder_name
+Example:- cd /var/www/sujit_biswas_w
+-clone
 Syntax:- git clone ssh_repo_path
 Example:- git clone git@github.com:sujitedu/sujit_biswas_w.git
 ```
@@ -116,11 +96,7 @@ Example:- git clone git@github.com:sujitedu/sujit_biswas_w.git
 ```sh
 ls
 ```
-- Move Project Folder to Web Server public directory
-```sh
-Syntax:- sudo mv project_folder_name /var/www
-Example:- sudo mv miniblog /var/www
-```
+
 - Go to Your Project Directory
 ```sh
 Syntax:- cd /var/www/project_folder_name
