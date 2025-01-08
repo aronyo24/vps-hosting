@@ -44,7 +44,6 @@ Example:- ssh -p 22 root@216.32.44.12
   apache2ctl -M
   pip --version
 - SQLite is Included with Python
-  python -c "import sqlite3; print(sqlite3.sqlite_version)"
   git --version
 ```
 - If Required Softwares and Modules are not Installed then Install them:
@@ -58,7 +57,7 @@ sudo apt install git
 - Install virtualenv
 ```sh
 pip list
-sudo pip install virtualenv
+sudo apt install python3 python3-venv
 ```
 - Verify Apache2 is Active and Running
 ```sh
@@ -68,10 +67,19 @@ sudo service apache2 status
 ```sh
 sudo ufw status verbose
 ```
+- if not active
+```sh
+sudo ufw enable
+sudo ufw allow ssh
+sudo ufw allow http
+sudo ufw allow https
+sudo ufw reload
+
+```
 - Make Connection between Remote Server and Github via SSH Key
 - Generate SSH Keys
 ```sh
-ssh-keygen -t ed25519 -C "your_email@example.com"
+ssh-keygen -t ed25519 -C "githubs"
 ```
 - If Permission Denied then Own .ssh then try again to Generate SSH Keys
 ```sh
