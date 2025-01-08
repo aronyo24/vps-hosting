@@ -35,12 +35,25 @@ ls -l /etc/apache2/conf-available/phpmyadmin.conf
 ```sh
    sudo mysql
 ```
+### Create database:
+```sh
+CREATE DATABASE db_name;
+```
 
-### Run the following SQL commands:
+### create the User:
 
 ```sh
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'your-password';
-FLUSH PRIVILEGES;
-EXIT;
+CREATE USER 'user_name'@'localhost' IDENTIFIED BY 'user_namet';
 
 ```
+
+### Grant Privileges to the User:
+```sh
+GRANT ALL PRIVILEGES ON db_name.* TO 'user_name'@'localhost';
+
+```
+### Apply Changes:
+
+```sh
+FLUSH PRIVILEGES;
+``
