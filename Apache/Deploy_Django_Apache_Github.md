@@ -167,6 +167,12 @@ sudo apache2ctl configtest
 cd /etc/apache2/sites-available/
 sudo a2ensite your_domain.conf
 ```
+Disable default Apache configuration
+```sh
+sudo a2dissite 000-default.conf
+sudo systemctl reload apache2
+
+```
 - Restart Apache2
 ```sh
 sudo service apache2 restart
