@@ -49,6 +49,7 @@ Example:- ssh -p 22 root@216.32.44.12
 - If Required Softwares and Modules are not Installed then Install them:
 ```sh
 sudo apt install apache2
+sudo apt update
 sudo apt install python
 sudo apt install libapache2-mod-wsgi-py3
 sudo apt install python3-pip
