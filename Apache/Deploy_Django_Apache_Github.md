@@ -116,10 +116,17 @@ Example:- source mb/bin/activate
 ```sh
 pip install -r requirements.txt
 ```
+
+-Go to
+```sh
+/etc/apache2/sites-available
+```
 - Create Virtual Host File
 ```sh
-nano /etc/apache2/sites-available/your_domain.conf
+Syntax:-sudo nano your_domain.conf
+Example:-sudo nano sujitbiswas.info.conf
 ```
+
 - Add Following Code in Virtual Host File
 ```sh
 <VirtualHost *:80>
