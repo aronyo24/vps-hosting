@@ -86,8 +86,8 @@ ssh -vT git@github.com
 
 - Using SSH Path It requires to setup SSH Key on Github
 -go to :
-Syntax:- cd /var/www/project_folder_name
-Example:- cd /var/www/sujit_biswas_w
+Syntax:- cd /var/www/
+
 -clone
 Syntax:- git clone ssh_repo_path
 Example:- git clone git@github.com:sujitedu/sujit_biswas_w.git
