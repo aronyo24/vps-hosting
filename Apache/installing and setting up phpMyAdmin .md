@@ -27,3 +27,20 @@ ls -l /etc/apache2/conf-available/phpmyadmin.conf
    sudo systemctl restart apache2
 
 ```
+
+## Secure phpMyAdmin
+
+### Disable root login from phpMyAdmin
+
+```sh
+   sudo mysql
+```
+
+### Run the following SQL commands:
+
+```sh
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'your-password';
+FLUSH PRIVILEGES;
+EXIT;
+
+```
