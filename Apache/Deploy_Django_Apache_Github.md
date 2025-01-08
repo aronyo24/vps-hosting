@@ -124,12 +124,12 @@ Example:- sudo mv miniblog /var/www
 - Go to Your Project Directory
 ```sh
 Syntax:- cd /var/www/project_folder_name
-Example:- cd /var/www/miniblog
+Example:- cd /var/www/sujit_biswas_w
 ```
 - Create Virtual env
 ```sh
-Syntax:- virtualenv env_name
-Example:- virtualenv mb
+Syntax:- python3 -m venv env_name
+Example:- python3 -m venv mvs
 ```
 - Activate Virtual env
 ```sh
