@@ -165,7 +165,7 @@ sudo apache2ctl configtest
 - Enable Virtual Host
 ```sh
 cd /etc/apache2/sites-available/
-sudo a2ensite your_domain.conf
+sudo a2ensite sujitbiswas.info.conf
 ```
 Disable default Apache configuration
 ```sh
