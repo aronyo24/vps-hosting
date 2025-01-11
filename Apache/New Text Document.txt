@@ -1,1 +1,10 @@
 database connect problem
+
+
+sudo apt update
+sudo apt install pkg-config libmysqlclient-dev
+
+sudo apt install libmariadb-dev
+
+
+
