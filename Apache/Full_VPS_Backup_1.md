@@ -8,7 +8,7 @@ This guide covers how to **manually back up** and **fully restore** your website
 ## ✅ Backup Contents
 
 - Website Files (`/var/www/html/` or custom paths)
-- Apache Configuration (`/etc/apache3/`)
+- Apache Configuration (`/etc/apache2/`)
 - phpMyAdmin Configuration (`/etc/phpmyadmin/`)
 - All MySQL Databases
 - Compressed into a single backup archive
