@@ -9,7 +9,7 @@ This guide covers how to **manually back up** and **fully restore** your website
 
 - Website Files (`/var/www/html/` or custom paths)
 - Apache Configuration (`/etc/apache2/`)
-- phpMyAdmin Configuration (`/etc/phpmyadmin/`)
+- phpMyAdmin Configuration (`/root/phpmyadmin`)
 - All MySQL Databases
 - Compressed into a single backup archive
 
@@ -40,7 +40,7 @@ sudo tar -czvf apache_conf_backup.tar.gz /etc/apache2/
 ### 3. Backup phpMyAdmin Configuration (Optional)
 
 ```bash
-sudo tar -czvf phpmyadmin_conf_backup.tar.gz /etc/phpmyadmin/
+sudo tar -czvf phpmyadmin_conf_backup.tar.gz /root/phpmyadmin/
 ```
 
 > Only needed if you made custom changes to phpMyAdmin settings.
