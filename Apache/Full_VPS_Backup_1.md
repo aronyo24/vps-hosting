@@ -30,7 +30,7 @@ sudo tar -czvf website_files_backup.tar.gz /var/www/html/
 ### 2. Backup Apache Configuration
 
 ```bash
-sudo tar -czvf apache_conf_backup.tar.gz /etc/apache3/
+sudo tar -czvf apache_conf_backup.tar.gz /etc/apache2/
 ```
 
 > Backup of all Apache settings and virtual host configurations.
