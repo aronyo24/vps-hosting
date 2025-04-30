@@ -14,16 +14,23 @@ This guide covers how to **manually back up** and **fully restore** your website
 - Compressed into a single backup archive
 
 ---
+## STEP 1: Create Backup Folder
 
-## 📦 Step 1: Backup Everything
+```bash
+mkdir -p ~/full_backup
+cd ~/full_backup
+
+```
+
+## 📦 Step 2: Backup Everything
 
 ### 1. Backup Website Files
 
 ```bash
-sudo tar -czvf website_files_backup.tar.gz /var/www/html/
+sudo tar -czvf website_files_backup.tar.gz /var/www/
 ```
 
-> Replace `/var/www/html/` with your actual site directory if different.
+> Replace `/var/www/` with your actual site directory if different.
 
 ---
 
@@ -57,12 +64,39 @@ mysqldump -u root -p --all-databases > all_databases_backup.sql
 
 ---
 
-### 5. Create a Folder for Final Backup
+
+### 5.Backup SSL Certificates (Let's Encrypt)
 
 ```bash
-mkdir ~/full_backup
-mv website_files_backup.tar.gz apache_conf_backup.tar.gz phpmyadmin_conf_backup.tar.gz all_databases_backup.sql ~/full_backup/
+tar -czvf ssl_letsencrypt.tar.gz /etc/letsencrypt/
+
 ```
+### 6.Backup Cron Jobs
+
+```bash
+tar -czvf cron_jobs.tar.gz /etc/cron.d/
+
+
+```
+### 7.Backup Network Settings
+
+```bash
+tar -czvf network_conf.tar.gz /etc/hosts /etc/network/
+
+
+
+```
+
+### 8.Combine Everything into One Final Backup
+
+```bash
+cd ~
+tar -czvf full_server_backup.tar.gz full_backup/
+
+
+```
+
+
 
 > Organize everything in one place before compression.
 
@@ -88,12 +122,13 @@ scp user@your-vps-ip:/home/user/full_server_backup.tar.gz .
 
 ---
 
-## ♻️ Step 3: Restore from Backup
+## ♻️ Step 3: RESTORATION STEPS (On New VPS)
 
 ### 1. Upload the Backup to VPS
 
 ```bash
-scp full_server_backup.tar.gz user@your-vps-ip:/home/user/
+scp full_server_backup.tar.gz root@new-server-ip:/root/
+
 ```
 
 > This uploads the backup archive back to the server.
@@ -105,6 +140,7 @@ scp full_server_backup.tar.gz user@your-vps-ip:/home/user/
 ```bash
 tar -xzvf full_server_backup.tar.gz
 cd full_backup
+
 ```
 
 > Navigate to the folder after extraction.
@@ -124,7 +160,8 @@ sudo tar -xzvf website_files_backup.tar.gz -C /
 ### 4. Restore Apache Configuration
 
 ```bash
-sudo tar -xzvf apache_conf_backup.tar.gz -C /
+tar -xzvf apache2_conf.tar.gz -C /
+
 ```
 
 > Restores your Apache server configuration.
@@ -134,8 +171,11 @@ sudo tar -xzvf apache_conf_backup.tar.gz -C /
 ### 5. Restore phpMyAdmin Configuration
 
 ```bash
-sudo tar -xzvf phpmyadmin_conf_backup.tar.gz -C /
+tar -xzvf phpmyadmin_conf.tar.gz -C /
+
 ```
+
+
 
 > Applies your phpMyAdmin settings if previously backed up.
 
