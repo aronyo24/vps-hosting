@@ -125,6 +125,17 @@ sudo chown -R www-data:www-data /var/www/roundcube
 ```
 
 ---
+##Fix: Install the missing PHP mbstring package\
+
+```bash
+sudo apt install php-intl php-mbstring php-xml php-curl php-zip php-mysql -y
+sudo systemctl restart apache2
+
+
+```
+
+
+
 
 ## 🛠️ STEP 7: Apache Config for Roundcube
 
