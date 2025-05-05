@@ -237,27 +237,3 @@ Login:
 
 ---
 
-## 📝 Final Checklist
-
-| Step | Status |
-|------|--------|
-| Apache, MySQL, phpMyAdmin already working | ✅ |
-| Postfix & Dovecot installed & configured | ✅ |
-| Mail user created | ✅ |
-| Roundcube installed & configured | ✅ |
-| Apache site for Roundcube configured | ✅ |
-| SSL installed | ✅ |
-| Roundcube database created in phpMyAdmin | ✅ |
-| Can login to Roundcube | 🔲 |
-
----
-
-## 🚀 Next Step (Highly Recommended)
-
-✅ Now that the mail server is almost ready, your **emails will go to spam folders without OpenDKIM + DMARC**.
-
-**Shall I prepare the next steps:**
-- ✅ OpenDKIM install & setup
-- ✅ DMARC DNS records ready to paste
-
-👉 Ready for the DKIM & DMARC part? Should I continue? 😄
