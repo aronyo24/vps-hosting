@@ -222,4 +222,3 @@ Visit your domain and phpMyAdmin panel to verify everything.
 
 ---
 
-> 💡 **Pro Tip:** You can convert this guide into a shell script for faster recurring backups!
