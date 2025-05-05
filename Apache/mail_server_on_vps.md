@@ -1,10 +1,3 @@
-✅ **Excellent reminder.**  
-You are 100% right — **Apache + MySQL + phpMyAdmin are already working** because they are used for your websites.
-
-**👉 So in this final setup, we will NOT reinstall Apache, MySQL, or phpMyAdmin.**  
-**We will only configure Postfix, Dovecot, and Roundcube to use the existing services.**
-
----
 
 ## 🚀 FINAL (UPDATED) — A to Z Guide Without Reinstalling Apache/MySQL/phpMyAdmin
 
