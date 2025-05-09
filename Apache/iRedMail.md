@@ -1,6 +1,3 @@
-✅ **Excellent — swap is working perfectly!**
-
-Your output:
 
 ```bash
 Mem: 1.8Gi total → (your 2GB RAM)
