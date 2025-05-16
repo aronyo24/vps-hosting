@@ -3,6 +3,7 @@ Sure! Here is the **full A-to-Z guide** to convert **Mailu’s SQLite database**
 * Migrate all domains, users, aliases, etc.
 * Continue using Mailu with **MySQL backend**
 * Access the database via **phpMyAdmin**
+* Access phpMyAdmin via `https://mail.technoheaven.org/phpmyadmin`
 
 ---
 
@@ -15,14 +16,15 @@ Sure! Here is the **full A-to-Z guide** to convert **Mailu’s SQLite database**
 
 ## 🧰 WHAT YOU NEED
 
-| Requirement     | Example Value                        |
-| --------------- | ------------------------------------ |
-| MySQL DB name   | `mailudb`                            |
-| MySQL user      | `mailu`                              |
-| MySQL password  | `mailupass123`                       |
-| MySQL container | `mailu-mysql-1` *(adjust as needed)* |
-| Old SQLite DB   | `/mailu/data/main.db`                |
-| phpMyAdmin      | Optional, to view database           |
+| Requirement     | Example Value                              |
+| --------------- | ------------------------------------------ |
+| MySQL DB name   | `mailudb`                                  |
+| MySQL user      | `mailu`                                    |
+| MySQL password  | `mailupass123`                             |
+| MySQL container | `mailu-mysql-1` *(adjust as needed)*       |
+| Old SQLite DB   | `/mailu/data/main.db`                      |
+| phpMyAdmin      | To view database via browser               |
+| Public URL      | `https://mail.technoheaven.org/phpmyadmin` |
 
 ---
 
@@ -60,10 +62,8 @@ sed -i 's/PRAGMA.*;//g' dump.sql
 sed -i 's/BEGIN TRANSACTION;/START TRANSACTION;/g' dump.sql
 sed -i 's/COMMIT;/COMMIT;/g' dump.sql
 sed -i '/sqlite_sequence/d' dump.sql
-sed -i 's/"//g' dump.sql  # Remove double quotes from table/column names
+sed -i 's/"//g' dump.sql
 ```
-
-You can also open `dump.sql` with `nano` and manually clean it if needed.
 
 ---
 
@@ -87,7 +87,7 @@ rm -rf /mailu/data/main.db
 
 ### ✅ Step 6: Edit `mailu.env` to use MySQL
 
-Open `/mailu/mailu.env` and make sure these lines are present:
+Open `/mailu/mailu.env` and ensure:
 
 ```env
 DB_FLAVOR=mysql
@@ -100,7 +100,7 @@ DB_PW=mailupass123
 
 ---
 
-### ✅ Step 7: Edit `docker-compose.yml` to include MySQL
+### ✅ Step 7: Edit `docker-compose.yml` to include MySQL and phpMyAdmin
 
 At the bottom of `services:` section, add:
 
@@ -117,16 +117,10 @@ At the bottom of `services:` section, add:
       - ./mysql-data:/var/lib/mysql
     networks:
       - default
-```
 
-Also optionally add `phpmyadmin`:
-
-```yaml
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     restart: always
-    ports:
-      - "8081:80"
     environment:
       PMA_HOST: mysql
       MYSQL_ROOT_PASSWORD: rootpass123
@@ -136,27 +130,53 @@ Also optionally add `phpmyadmin`:
 
 ---
 
-### ✅ Step 8: Start the MySQL container first
+### ✅ Step 8: Add reverse proxy to expose phpMyAdmin at `/phpmyadmin`
+
+Create override file:
+
+```bash
+mkdir -p /mailu/overrides/nginx
+nano /mailu/overrides/nginx/phpmyadmin.conf
+```
+
+Paste:
+
+```nginx
+location /phpmyadmin {
+    proxy_pass http://phpmyadmin:80;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+}
+```
+
+Ensure your `front` service includes:
+
+```yaml
+volumes:
+  - "/mailu/overrides/nginx:/overrides:ro"
+```
+
+---
+
+### ✅ Step 9: Start MySQL container first
 
 ```bash
 docker compose up -d mysql
 ```
 
-Wait \~10 seconds for the DB to initialize.
-
 ---
 
-### ✅ Step 9: Import the cleaned SQL dump
+### ✅ Step 10: Import the cleaned SQL dump
 
 ```bash
 docker exec -i mailu-mysql-1 mysql -u mailu -p'mailupass123' mailudb < dump.sql
 ```
 
-> ⚠️ Adjust `mailu-mysql-1` if your container name is different.
-
 ---
 
-### ✅ Step 10: Start the full Mailu stack
+### ✅ Step 11: Start the full Mailu stack
 
 ```bash
 docker compose up -d
@@ -164,15 +184,13 @@ docker compose up -d
 
 ---
 
-### ✅ Step 11: Confirm it works
-
-Check the logs:
+### ✅ Step 12: Confirm MySQL is active
 
 ```bash
 docker compose logs admin | grep -i mysql
 ```
 
-Expected:
+Look for:
 
 ```
 INFO [alembic.runtime.migration] Context impl MySQLImpl
@@ -180,34 +198,32 @@ INFO [alembic.runtime.migration] Context impl MySQLImpl
 
 ---
 
-### ✅ Step 12: Access Admin and phpMyAdmin
+### ✅ Step 13: Access Admin and phpMyAdmin
 
 * Mailu admin: `https://mail.technoheaven.org/admin`
-* phpMyAdmin: `http://your-vps-ip:8081`
+* phpMyAdmin: `https://mail.technoheaven.org/phpmyadmin`
 
 Login with:
 
-* **Username:** `mailu`
-* **Password:** `mailupass123`
+* **User**: `mailu`
+* **Password**: `mailupass123`
 
 ---
 
-## 🎉 SUCCESS: Mailu Now Runs on MySQL!
+## 🎉 SUCCESS: Mailu Now Runs on MySQL with Web-Based Access to phpMyAdmin!
 
 ---
 
 ## 🧠 Summary Table
 
-| Task                      | Status/Command                            |
-| ------------------------- | ----------------------------------------- |
-| Backup old DB             | `cp main.db main.db.bak`                  |
-| Dump SQLite               | `sqlite3 main.db .dump > dump.sql`        |
-| Clean SQL                 | `sed` or manual cleanup                   |
-| Setup MySQL               | Add service to `docker-compose.yml`       |
-| Configure Mailu for MySQL | Edit `mailu.env`                          |
-| Import Data               | `docker exec -i ... mysql ... < dump.sql` |
-| Restart Mailu             | `docker compose up -d`                    |
-
----
-
-Would you like a **script that automates this whole process**? I can generate that for you too.
+| Task                      | Status/Command                             |
+| ------------------------- | ------------------------------------------ |
+| Backup old DB             | `cp main.db main.db.bak`                   |
+| Dump SQLite               | `sqlite3 main.db .dump > dump.sql`         |
+| Clean SQL                 | `sed` or manual cleanup                    |
+| Setup MySQL + phpMyAdmin  | Add services to `docker-compose.yml`       |
+| Reverse proxy phpMyAdmin  | NGINX override at `/phpmyadmin`            |
+| Configure Mailu for MySQL | Edit `mailu.env`                           |
+| Import Data               | `docker exec -i ... mysql ... < dump.sql`  |
+| Restart Mailu             | `docker compose up -d`                     |
+| Access Admin & DB         | `https://mail.technoheaven.org/phpmyadmin` |
