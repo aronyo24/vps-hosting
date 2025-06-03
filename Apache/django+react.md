@@ -226,3 +226,116 @@ Do you want me to:
 * Help you **export this project** to a GitHub repo?
 
 Let me know what to build next.
+
+
+## Now let's fix the issue with React frontend not working at http://localhost:3000.
+
+Awesome that your Django API is working at [http://127.0.0.1:8000/api/projects/](http://127.0.0.1:8000/api/projects/) ✅
+
+Now let's fix the issue with **React frontend not working** at [http://localhost:3000](http://localhost:3000).
+
+---
+
+## 🚨 Common Reasons React Is Not Working
+
+Here are the possible causes and how to fix them:
+
+---
+
+### ✅ 1. Check if React App Was Created Properly
+
+In terminal, run:
+
+```bash
+cd portfolio_pro/frontend
+```
+
+Then list files:
+
+```bash
+dir      # (on Windows)
+```
+
+You should see:
+
+```
+node_modules/
+public/
+src/
+package.json
+...
+```
+
+If not, React app might not have been created. In that case, re-run:
+
+```bash
+cd portfolio_pro
+npx create-react-app frontend
+```
+
+---
+
+### ✅ 2. Start the React Server
+
+If `frontend/` exists and is correct, run:
+
+```bash
+cd portfolio_pro/frontend
+npm start
+```
+
+This should open: [http://localhost:3000](http://localhost:3000)
+
+---
+
+### ✅ 3. Fix Browser Not Opening Automatically
+
+If the browser doesn’t open, manually visit:
+👉 [http://localhost:3000](http://localhost:3000)
+
+If the terminal says:
+`Compiled successfully! You can now view frontend in the browser.`
+✅ then React is running fine.
+
+---
+
+### 🔧 4. Error: "npm: command not found" OR other issues
+
+Make sure:
+
+* You installed Node.js & npm
+  Check:
+
+```bash
+node -v
+npm -v
+```
+
+If this doesn’t work, download & install [Node.js LTS version](https://nodejs.org/en/download)
+
+---
+
+### 🧪 5. Still Not Working? Try Cleaning
+
+Inside `frontend/`:
+
+```bash
+rm -rf node_modules package-lock.json  # (Git Bash or WSL)
+# OR for Windows PowerShell:
+Remove-Item -Recurse -Force node_modules, package-lock.json
+
+npm install
+npm start
+```
+
+---
+
+## 🆘 If You See a Specific Error
+
+Please copy and paste or screenshot the **exact error message** from the terminal or browser console. I’ll tell you exactly how to fix it.
+
+---
+
+Would you like me to review your `App.js` and folder contents to confirm everything's in place?
+
+
